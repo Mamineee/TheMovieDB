@@ -1,64 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.Intrinsics.X86;
-using Microsoft.EntityFrameworkCore;
-
 
 namespace TheMovieDB.Models.EntityFramework;
 
-[PrimaryKey("Utl_id")]
+
 [Table("t_e_utilisateur_utl")]
 public partial class t_e_utilisateur_utl
 {
     [Key]
-    [Required]
     [Column("utl_id")]
-    public int UtilisateurId { get; set; }
-
+    public string? UtilisateurId { get; set; }
     [Column("utl_nom")]
     [StringLength(50)]
     public string? Nom { get; set; }
-
-
     [Column("utl_prenom")]
     [StringLength(50)]
     public string? Prenom { get; set; }
-
     [Column("utl_mobile", TypeName = "char(10)")]
     public string? Mobile { get; set; }
-
     [Column("utl_mail")]
     [StringLength(100)]
-    [Required]
     public string? Mail { get; set; }
-
     [Column("utl_pwd")]
-    [Required]
+    [StringLength(64)]
     public string? Pwd { get; set; }
-
     [Column("utl_rue")]
+    [StringLength(200)]
     public string? Rue { get; set; }
-
-    [Column("utl_cp")]
+    [Column("utl_cp", TypeName = "char(10)")]
     public string? CodePostal { get; set; }
-
     [Column("utl_ville")]
+    [StringLength(50)]
     public string? Ville { get; set; }
-
     [Column("utl_pays")]
+    [StringLength(50)]
     public string? Pays { get; set; }
-
     [Column("utl_latitude")]
-    public decimal Latitude { get; set; }
-    
+    public float? Latitude { get; set; }
     [Column("utl_longitude")]
-    public decimal Longitude { get; set; }
-
+    public float? Longitude { get; set; }
     [Column("utl_datecreation")]
     public DateTime DateCreation { get; set; }
 
-    [InverseProperty("Utl_Navigation")]
-    public virtual ICollection<t_e_utilisateur_utl> NotesUtilisateur { get; set; } = new List<t_e_utilisateur_utl>();
+    [InverseProperty("UtilisateurNotant")]
+    public virtual ICollection<t_j_notation_not> NotesUtilisateur { get; set; } = new List<t_j_notation_not>();
+
 }
